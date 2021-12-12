@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class SatearnApiConfig(AppConfig):
+class AppConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'satearn_api'
+    name = 'app'
