@@ -1,0 +1,9 @@
+{% if latest_bounties %}
+    <ul>
+        {% for bounty in latest_bounties %}
+            <li><a href="{% url 'app:bounty' bounty.id %}">{{ bounty.title }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No bounties are available.</p>
+{% endif %}
