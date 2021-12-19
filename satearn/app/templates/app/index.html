@@ -1,3 +1,14 @@
+<h1>Welcome to Sat Earn</h1>
+
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+  <p><a href="{% url 'app:logout' %}">Log Out</a></p>
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'app:login' %}">Log In</a>
+  <!-- TODO: User registration -->
+{% endif %}
+
 {% if latest_bounties %}
     <ul>
         {% for bounty in latest_bounties %}
@@ -6,4 +17,8 @@
     </ul>
 {% else %}
     <p>No bounties are available.</p>
+{% endif %}
+
+{% if user.is_authenticated %}
+  <p><a href="{% url 'app:create' %}">Create a Bounty</a></p>
 {% endif %}
