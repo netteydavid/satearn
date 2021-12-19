@@ -6,7 +6,8 @@
 {% else %}
   <p>You are not logged in</p>
   <a href="{% url 'app:login' %}">Log In</a>
-  <!-- TODO: User registration -->
+  <br>
+  <a href="{% url 'accounts:signup' %}">Create an Account</a>
 {% endif %}
 
 {% if latest_bounties %}
