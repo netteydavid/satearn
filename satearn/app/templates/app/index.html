@@ -1,25 +1,46 @@
-<h1>Welcome to Sat Earn</h1>
+{% extends "app/navbar.html" %}
 
-{% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p><a href="{% url 'app:logout' %}">Log Out</a></p>
-{% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'app:login' %}">Log In</a>
+{% block main %}
+
+<div class="text-center">
+  <h1>Welcome to Sat Earn</h1>
   <br>
-  <a href="{% url 'accounts:signup' %}">Create an Account</a>
-{% endif %}
-
-{% if latest_bounties %}
-    <ul>
-        {% for bounty in latest_bounties %}
-            <li><a href="{% url 'app:bounty' bounty.id %}">{{ bounty.title }}</a></li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No bounties are available.</p>
-{% endif %}
+  <br>
+  <h3>Get Satoshis through your proof of work.</h3>
+</div>
 
 {% if user.is_authenticated %}
-  <p><a href="{% url 'app:create' %}">Create a Bounty</a></p>
+<a href="{% url 'app:create' %}"><button type="button" class="btn btn-outline-success">Create a Bounty</button></a>
 {% endif %}
+<!-- TODO: Filter, sort by, advanced search -->
+<hr>
+{% if latest_bounties %}
+<div class="row row-cols-1 row-cols-md-2 g-4">
+  {% for bounty in latest_bounties %}
+  <div class="col">
+    <div class="card">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <a href="{% url 'app:bounty' bounty.id %}"><h5 class="card-title">{{ bounty.title }}</h5></a>
+        <p class="card-text">
+          Amount: {{ bounty.amount }} {% if bounty.amount == 1 %}sat{% else %}sats{% endif %}
+        </p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<!-- TODO: Add pagination -->
+{% else %}
+<br>
+<div class="text-center">
+  <h3>
+    No new bounties. <a href="{% url 'app:create' %}">Why not create one?</a>
+  </h3>
+</div>
+{% endif %}
+
+
+
+{% endblock %}
+

@@ -33,8 +33,7 @@ def create(request):
             bounty = formset.save(commit=False)
             bounty.author = request.user
             bounty.save()
-            #formset.save(commit=True)
     else:
-        bounty = Bounty(author=request.user) #TODO: Figure out login so that the user's info can be passed to the bounty creation
+        bounty = Bounty(author=request.user)
         formset = BountyFormSet(instance=bounty)
     return render(request, 'app/create.html', {'formset': formset})

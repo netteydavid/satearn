@@ -1,7 +1,21 @@
-<!-- templates/registration/login.html -->
-<h2>Log In</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Log In</button>
-</form>
+{% extends "app/base.html" %}
+
+{% block content %}
+
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'app:index' %}">Sat Earn</a>
+  </div>
+</nav>
+<div class="text-center">
+  <br>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-outline-success">Log In</button>
+  </form>
+  <br>
+  <a href="{% url 'accounts:signup' %}">Create an Account</a>
+</div>
+
+{% endblock %}

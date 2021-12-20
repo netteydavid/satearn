@@ -1,3 +1,7 @@
+{% extends "app/navbar.html" %}
+
+{% block main %}
+
 <h1>{{ bounty.title }} - {{ bounty.reward }} sats</h1>
 <br>
 <h3>{{ bounty.description }}</h3>
@@ -6,3 +10,5 @@
     <li>Reward: {{bounty.reward}} satoshis</li>
     <li>Due: {{bounty.due_date}}</li>
 </ul>
+
+{% endblock %}
