@@ -2,6 +2,8 @@
 
 {% block main %}
 
+{% load static %}
+
 <div class="text-center">
   <h1>Welcome to Sat Earn</h1>
   <br>
@@ -19,11 +21,11 @@
   {% for bounty in latest_bounties %}
   <div class="col">
     <div class="card">
-      <img src="..." class="card-img-top" alt="...">
+      <img src="{% static 'app/default_card_img.jpg' %}" class="card-img-top" alt="{{ bounty.title }}">
       <div class="card-body">
         <a href="{% url 'app:bounty' bounty.id %}"><h5 class="card-title">{{ bounty.title }}</h5></a>
         <p class="card-text">
-          Amount: {{ bounty.amount }} {% if bounty.amount == 1 %}sat{% else %}sats{% endif %}
+          Reward: {{ bounty.reward }} {% if bounty.reward == 1 %}sat{% else %}sats{% endif %}
         </p>
       </div>
     </div>
