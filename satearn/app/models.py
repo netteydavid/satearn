@@ -54,3 +54,8 @@ class BountyForm(ModelForm):
         model = Bounty
         fields = ['title', 'description', 'reward', 'due_date']
         localized_fields = ('due_date',)
+
+class Application(models.Model):
+    bounty = models.ForeignKey(Bounty, on_delete=models.SET_NULL, null=True)
+    applicant = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    created_on = models.DateTimeField(default=datetime.now(), editable=False)

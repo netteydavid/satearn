@@ -11,4 +11,16 @@
     <li>Due: {{bounty.due_date}}</li>
 </ul>
 
+{% if user.is_authenticated and user != bounty.author and applied < 0 %}
+<form method="post" action="{% url 'app:apply' bounty.id %}">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-outline-success" value="Apply">
+</form>
+{% elif applied > -1 %}
+<form method="post" action="{% url 'app:unapply' bounty.id applied %}">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-outline-danger" value="Unapply">
+</form>
+{% endif %}
+
 {% endblock %}

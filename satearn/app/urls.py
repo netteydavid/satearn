@@ -11,6 +11,10 @@ urlpatterns = [
     path('<int:bounty_id>/invoice/', views.invoice, name='invoice'),
     # ex: /app/create/
     path('create/', views.create, name='create'),
+    # ex: /app/2/apply/
+    path('<int:bounty_id>/apply/', views.apply, name='apply'),
+    # ex: /app/6/unapply/2
+    path('<int:bounty_id>/unapply/<int:application_id>', views.unapply, name='unapply'),
     
     path('', include('django.contrib.auth.urls')),
 ]
