@@ -1,9 +1,6 @@
 from django.db import models
 from datetime import datetime
-from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.db.models import fields
-from django.forms import ModelForm
 
 # Represents a bounty created by a user and completed by another
 class Bounty(models.Model):
@@ -48,12 +45,6 @@ class Invoice(models.Model):
 
     def __str__(self) -> str:
         return self.invoice
-
-class BountyForm(ModelForm):
-    class Meta:
-        model = Bounty
-        fields = ['title', 'description', 'reward', 'due_date']
-        localized_fields = ('due_date',)
 
 class Application(models.Model):
     bounty = models.ForeignKey(Bounty, on_delete=models.SET_NULL, null=True)

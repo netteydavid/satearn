@@ -1,7 +1,7 @@
-from django import template
 from django.shortcuts import get_object_or_404, render, redirect
-from django.http import HttpResponse, response
-from .models import Application, Bounty, BountyForm
+from django.http import HttpResponse
+from .models import Application, Bounty
+from .forms import BountyForm
 from django.forms import modelform_factory
 from django.contrib.auth.decorators import login_required
 
