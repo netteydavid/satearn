@@ -5,7 +5,7 @@ from django.db.models.signals import post_save
 
 class Profile(models.Model):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
-    avatar = models.ImageField(default='accounts/default_pic.jpg')
+    avatar = models.ImageField(default='registration/default_pic.jpg')
     bio = models.TextField(blank=True)
 
     @receiver(post_save, sender=get_user_model())
