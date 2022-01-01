@@ -20,3 +20,6 @@ def profile(request, user_id):
     user = get_object_or_404(get_user_model(), pk=user_id)
     profile_form = ProfileForm(instance=user.profile)
     return render(request, "registration/profile.html", {"is_me": request.user.id == user_id, "user": user, "profile_user": profile_form})
+
+#TODO: Edit profile
+#TODO: Edit user account

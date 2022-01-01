@@ -5,21 +5,17 @@
 {% load static %}
 
 <div class="text-center">
-  <h1>Welcome to Sat Earn</h1>
-  <br>
-  <br>
-  <h3>Get Satoshis through your proof of work.</h3>
+    <h1>Your Bounties</h1>
 </div>
-
 {% if user.is_authenticated %}
 <a href="{% url 'app:create' %}"><button type="button" class="btn btn-outline-success">Create a Bounty</button></a>
 {% endif %}
 <!-- TODO: Filter, sort by, advanced search -->
 <hr>
-{% if latest_bounties %}
+{% if bounties %}
 <!--TODO: Make each row hold 4 bounties-->
 <div class="row row-cols-1 row-cols-md-2 g-4">
-  {% for bounty in latest_bounties %}
+  {% for bounty in bounties %}
   <div class="col">
     <div class="card">
       <img src="{% static 'app/default_card_img.jpg' %}" class="card-img-top" alt="{{ bounty.title }}">
@@ -38,10 +34,9 @@
 <br>
 <div class="text-center">
   <h3>
-    No new bounties. <a href="{% url 'app:create' %}">Why not create one?</a>
+    No bounties. <a href="{% url 'app:create' %}">Why not create one?</a>
   </h3>
 </div>
 {% endif %}
 
 {% endblock %}
-

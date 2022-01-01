@@ -16,9 +16,10 @@ def bounty(request, bounty_id):
     bounty = get_object_or_404(Bounty, pk=bounty_id)
     application_id = -1
     
-    applications = Application.objects.filter(applicant=request.user, bounty=bounty)
-    if applications.count() > 0:
-        application_id = applications[0].id
+    if request.user.is_authenticated:
+        applications = Application.objects.filter(applicant=request.user, bounty=bounty)
+        if applications.count() > 0:
+            application_id = applications[0].id
 
     return render(request, 'app/bounty.html', {'bounty': bounty, 'applied': application_id})
 
@@ -62,3 +63,11 @@ def unapply(request, bounty_id, application_id):
             application.delete()
         
     return redirect("app:bounty", bounty_id=bounty_id)
+
+@login_required(login_url='/app/login')
+def my_bounties(request):
+    bounties = Bounty.objects.order_by('-created_on').filter(author=request.user)
+    context = {
+        'bounties': bounties,
+    }
+    return render(request, 'app/my_bounties.html', context)

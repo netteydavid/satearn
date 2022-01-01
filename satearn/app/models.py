@@ -19,6 +19,7 @@ class Bounty(models.Model):
     ]
 
     title = models.CharField(max_length=200)
+    #TODO: Add bounty image
     description = models.TextField(blank=True)
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     reward = models.IntegerField()
@@ -33,6 +34,8 @@ class Bounty(models.Model):
         related_query_name='assignment'
     )
     completed_on = models.DateTimeField(null=True)
+
+    #TODO: Bounty categories
 
     def __str__(self) -> str:
         return self.title

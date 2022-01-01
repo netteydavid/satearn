@@ -2,7 +2,12 @@
 
 {% block main %}
 
+<!--TODO: Add bounty image-->
+<!--TODO: Add edit button if you're the creator and the status is new-->
+<!--TODO: Pretty this up-->
+
 <h1>{{ bounty.title }} - {{ bounty.reward }} sats</h1>
+<a href="{% url 'accounts:profile' bounty.author.id %}"><h2>{{ bounty.author.username }}</h2></a>
 <br>
 <h3>{{ bounty.description }}</h3>
 

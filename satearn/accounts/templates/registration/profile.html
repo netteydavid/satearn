@@ -4,6 +4,8 @@
 
 {% load static %}
 
+<!--TODO: Add edit button if me-->
+
 <div class="text-center">
     <img src="{% if user.profile.avatar %}{{ user.profile.avatar.url }}{% else %}{% static 'accounts/default_pic.jpg' %}{% endif %}" class="rounded mx-auto d-block" width="400" height="300">
     <h3>{{ user.username }}</h3>
