@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from .forms import NewUserForm, ProfileForm, UserForm
 from django.urls import reverse_lazy
 from django.views import generic
@@ -13,6 +13,11 @@ class SignUpView(generic.CreateView):
 
 @login_required(login_url='/app/login')
 def user(request):
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        if user_form.is_valid():
+            user_form.save()
+            return redirect('accounts:user')
     user_form = UserForm(instance=request.user)
     return render(request, "registration/user.html", {"user": request.user, "user_form": user_form})
 
