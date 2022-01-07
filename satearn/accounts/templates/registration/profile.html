@@ -5,12 +5,12 @@
 {% load static %}
 
 <div class="text-center" id="profile">
-    <img src="{% if user.profile.avatar %}{{ user.profile.avatar.url }}{% else %}{% static 'accounts/default_pic.jpg' %}{% endif %}" class="rounded mx-auto d-block" width="400" height="300">
-    <h3>{{ user.username }}</h3>
+    <img src="{% if profile_user.profile.avatar %}{{ profile_user.profile.avatar.url }}{% else %}{% static 'accounts/default_pic.jpg' %}{% endif %}" class="rounded mx-auto d-block" width="400" height="300">
+    <h3>{{ profile_user.username }}</h3>
     <br>
     <br>
     <h3>Bio:</h3>
-    <p>{{ user.profile.bio }}</p>
+    <p>{{ profile_user.profile.bio }}</p>
     {% if is_me %}
     <button class="btn btn-outline-success" onclick="editprofile()">Edit Profile</button>
     {% endif %}
@@ -20,7 +20,7 @@
 <div class="text-center" id="profile_edit" style="display: none;">
     <form method="POST" action="{% url 'accounts:profile' user.id %}">
         {% csrf_token %}
-        {{ profile_user.as_p }}
+        {{ profile_form.as_p }}
         <input type="submit" class="btn btn-outline-success" value="Save Changes" onclick="canceledit()">
         <input type="button" class="btn btn-outline-danger" value="Cancel" onclick="canceledit()">
     </form>
