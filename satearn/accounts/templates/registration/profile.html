@@ -10,10 +10,17 @@
     <br>
     <br>
     <h3>Bio:</h3>
-    <p>{{ profile_user.profile.bio }}</p>
+    <p class="card card-body">{{ profile_user.profile.bio }}</p>
     {% if is_me %}
     <button class="btn btn-outline-success" onclick="editprofile()">Edit Profile</button>
     {% endif %}
+
+    <!--TODO: Average rating from clients, only show if there's at least one review-->
+    <!--TODO: Reviews and ratings only from clients, expand from average-->
+
+    <!--TODO: Average rating from customers, only show if there's at least one review-->
+    <!--TODO: Reviews and ratings only from customers, expand from average-->
+
 </div>
 
 {% if is_me %}

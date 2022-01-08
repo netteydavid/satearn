@@ -1,0 +1,131 @@
+{% extends "app/navbar.html" %}
+
+{% block main %}
+
+{% load static %}
+
+<div class="text-center">
+    <h1>My Jobs</h1>
+</div>
+
+<!--TODO: Make each row hold 4 bounties-->
+<div class="accordion" id="applications">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="applied-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#applied" aria-expanded="true" aria-controls="applied">
+                Applied ({{ applied.count }})
+            </button>
+        </h2>
+        <div class="accordion-collapse collapse show" id="applied" aria-labelledby="applied-header">
+            <div class="accordion-body">
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    {% for application in applied %}
+                    <div class="col">
+                        <div class="card">
+                            <img src="{% static 'app/default_card_img.jpg' %}" class="card-img-top" alt="{{ application.bounty.title }}">
+                            <div class="card-body">
+                                <a href="{% url 'app:bounty' application.bounty.id %}"><h5 class="card-title">{{ application.bounty.title }}</h5></a>
+                                <p class="card-text">
+                                    Reward: {{ application.bounty.reward }} {% if application.bounty.reward == 1 %}sat{% else %}sats{% endif %}
+                                </p>
+                                
+                                <!--TODO: Unapply button-->
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="working-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#working" aria-expanded="false" aria-controls="working">
+                Working ({{ working.count }})
+            </button>
+        </h2>
+        <div class="accordion-collapse collapse" id="working" aria-labelledby="working-header">
+            <div class="accordion-body">
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    {% for application in working %}
+                    <div class="col">
+                        <div class="card">
+                            <img src="{% static 'app/default_card_img.jpg' %}" class="card-img-top" alt="{{ application.bounty.title }}">
+                            <div class="card-body">
+                                <a href="{% url 'app:bounty' application.bounty.id %}"><h5 class="card-title">{{ application.bounty.title }}</h5></a>
+                                <p class="card-text">
+                                    Reward: {{ application.bounty.reward }} {% if application.bounty.reward == 1 %}sat{% else %}sats{% endif %}
+                                </p>
+                                
+                                <!--TODO: Unapply button-->
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="completed-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#completed" aria-expanded="false" aria-controls="completed">
+                Completed ({{ completed.count }})
+            </button>
+        </h2>
+        <div class="accordion-collapse collapse" id="completed" aria-labelledby="completed-header">
+            <div class="accordion-body">
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    {% for application in completed %}
+                    <div class="col">
+                        <div class="card">
+                            <img src="{% static 'app/default_card_img.jpg' %}" class="card-img-top" alt="{{ application.bounty.title }}">
+                            <div class="card-body">
+                                <a href="{% url 'app:bounty' application.bounty.id %}"><h5 class="card-title">{{ application.bounty.title }}</h5></a>
+                                <p class="card-text">
+                                    Reward: {{ application.bounty.reward }} {% if application.bounty.reward == 1 %}sat{% else %}sats{% endif %}
+                                </p>
+                                
+                                <!--TODO: Unapply button-->
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="cancelled-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cancelled" aria-expanded="false" aria-controls="cancelled">
+                Cancelled ({{ cancelled.count }})
+            </button>
+        </h2>
+        <div class="accordion-collapse collapse" id="cancelled" aria-labelledby="cancelled-header">
+            <div class="accordion-body">
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    {% for application in cancelled %}
+                    <div class="col">
+                        <div class="card">
+                            <img src="{% static 'app/default_card_img.jpg' %}" class="card-img-top" alt="{{ application.bounty.title }}">
+                            <div class="card-body">
+                                <a href="{% url 'app:bounty' application.bounty.id %}"><h5 class="card-title">{{ application.bounty.title }}</h5></a>
+                                <p class="card-text">
+                                    Reward: {{ application.bounty.reward }} {% if application.bounty.reward == 1 %}sat{% else %}sats{% endif %}
+                                </p>
+                                
+                                <!--TODO: Unapply button-->
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- TODO: Add pagination -->
+
+{% endblock %}

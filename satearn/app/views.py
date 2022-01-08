@@ -71,3 +71,18 @@ def my_bounties(request):
         'bounties': bounties,
     }
     return render(request, 'app/my_bounties.html', context)
+
+@login_required(login_url='/app/login')
+def my_jobs(request):
+    applied = Application.objects.filter(applicant=request.user, bounty__status=Bounty.NEW, bounty__assigned_to=None)
+    working = Application.objects.filter(applicant=request.user, bounty__status=Bounty.WORKING, bounty__assigned_to=request.user)
+    completed = Application.objects.filter(applicant=request.user, bounty__status=Bounty.COMPLETE, bounty__assigned_to=request.user)
+    cancelled = Application.objects.filter(applicant=request.user, bounty__status=Bounty.CANCELLED, bounty__assigned_to=request.user)
+
+    context = {
+        'applied': applied,
+        'working': working,
+        'completed': completed,
+        'cancelled': cancelled,
+    }
+    return render(request, 'app/my_jobs.html', context)
