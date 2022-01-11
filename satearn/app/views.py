@@ -14,14 +14,22 @@ def index(request):
 
 def bounty(request, bounty_id):
     bounty = get_object_or_404(Bounty, pk=bounty_id)
+
+    if request.method == 'POST' and bounty.status == Bounty.NEW:
+        bounty_form = BountyForm(request.POST, instance=bounty)
+        if bounty_form.is_valid():
+            bounty_form.save()
+            return redirect('app:bounty', bounty_id=bounty_id)
+
+    bounty_form = BountyForm(instance=bounty)
+
     application_id = -1
-    
     if request.user.is_authenticated:
         applications = Application.objects.filter(applicant=request.user, bounty=bounty)
         if applications.count() > 0:
             application_id = applications[0].id
 
-    return render(request, 'app/bounty.html', {'bounty': bounty, 'applied': application_id})
+    return render(request, 'app/bounty.html', {'bounty': bounty, 'bounty_form': bounty_form, 'application_id': application_id, 'is_me': request.user == bounty.author})
 
 def invoice(request, bounty_id):
     response = "You're looking at the invoice of bounty %s"

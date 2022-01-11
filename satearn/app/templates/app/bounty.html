@@ -6,26 +6,57 @@
 <!--TODO: Add edit button if you're the creator and the status is new-->
 <!--TODO: Pretty this up-->
 
-<h1>{{ bounty.title }} - {{ bounty.reward }} sats</h1>
-<a href="{% url 'accounts:profile' bounty.author.id %}"><h2>{{ bounty.author.username }}</h2></a>
-<br>
-<h3>{{ bounty.description }}</h3>
+<div class="text-center" id="bounty">
+    <span>
+        <h1>{{ bounty.title }} - {{ bounty.reward }} sats</h1>
+        {% if is_me and bounty.status == bounty.NEW %}
+        &nbsp;&nbsp;<button class="btn btn-outline-success" onclick="editbounty()">Edit Bounty</button>
+        {% endif %}
+    </span>
 
-<ul>
-    <li>Reward: {{bounty.reward}} satoshis</li>
-    <li>Due: {{bounty.due_date}}</li>
-</ul>
+    {% if not is_me %}
+    <a href="{% url 'accounts:profile' bounty.author.id %}"><h2>{{ bounty.author.username }}</h2></a>
+    <br>
+    {% endif %}
+    <h3>{{ bounty.description }}</h3>
 
-{% if user.is_authenticated and user != bounty.author and applied < 0 %}
-<form method="post" action="{% url 'app:apply' bounty.id %}">
-    {% csrf_token %}
-    <input type="submit" class="btn btn-outline-success" value="Apply">
-</form>
-{% elif applied > -1 %}
-<form method="post" action="{% url 'app:unapply' bounty.id applied %}">
-    {% csrf_token %}
-    <input type="submit" class="btn btn-outline-danger" value="Unapply">
-</form>
+    <p>Reward: {{bounty.reward}} satoshis</p>
+    <p>Due: {{bounty.due_date}}</p>
+
+    {% if user.is_authenticated and not is_me and application_id < 0 %}
+    <form method="post" action="{% url 'app:apply' bounty.id %}">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-outline-success" value="Apply">
+    </form>
+    {% elif application_id > -1 %}
+    <form method="post" action="{% url 'app:unapply' bounty.id application_id %}">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-outline-danger" value="Unapply">
+    </form>
+    {% endif %}
+</div>
+
+{% if user.is_authenticated and is_me and bounty.status == bounty.NEW %}
+<div class="text-center" id="bounty_edit" style="display: none;">
+    <form method="POST" action="{% url 'app:bounty' bounty.id %}">
+        {% csrf_token %}
+        {{ bounty_form.as_p }}
+        <input type="submit" class="btn btn-outline-success" value="Save Changes" onclick="canceledit()">
+        <input type="button" class="btn btn-outline-danger" value="Cancel" onclick="canceledit()">
+    </form>
+</div>
+
+<script>
+    function editbounty(){
+        document.getElementById("bounty").style.display = "none";
+        document.getElementById("bounty_edit").style.display = "block";
+    }
+    
+    function canceledit(){
+        document.getElementById("bounty").style.display = "block";
+        document.getElementById("bounty_edit").style.display = "none";
+    }
+</script>
 {% endif %}
 
 <!--TODO: Show applicants if you're the creator and the status is new-->
