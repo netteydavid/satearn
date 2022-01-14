@@ -24,12 +24,25 @@ def bounty(request, bounty_id):
     bounty_form = BountyForm(instance=bounty)
 
     application_id = -1
-    if request.user.is_authenticated:
-        applications = Application.objects.filter(applicant=request.user, bounty=bounty)
-        if applications.count() > 0:
-            application_id = applications[0].id
+    applications = []
 
-    return render(request, 'app/bounty.html', {'bounty': bounty, 'bounty_form': bounty_form, 'application_id': application_id, 'is_me': request.user == bounty.author})
+    if request.user.is_authenticated and bounty.status == Bounty.NEW:
+        applications = Application.objects.filter(bounty=bounty)
+
+    if request.user.is_authenticated:
+        my_application = Application.objects.filter(applicant=request.user, bounty=bounty)
+        if my_application.count() > 0:
+            application_id = my_application[0].id
+
+    context = {
+        'bounty': bounty, 
+        'bounty_form': bounty_form, 
+        'applications': applications, 
+        'application_id': application_id, 
+        'is_me': request.user == bounty.author
+    }
+
+    return render(request, 'app/bounty.html', context)
 
 def invoice(request, bounty_id):
     response = "You're looking at the invoice of bounty %s"

@@ -3,7 +3,6 @@
 {% block main %}
 
 <!--TODO: Add bounty image-->
-<!--TODO: Add edit button if you're the creator and the status is new-->
 <!--TODO: Pretty this up-->
 
 <div class="text-center" id="bounty">
@@ -38,6 +37,7 @@
 
 {% if user.is_authenticated and is_me and bounty.status == bounty.NEW %}
 <div class="text-center" id="bounty_edit" style="display: none;">
+    <h1>Edit Bounty</h1>
     <form method="POST" action="{% url 'app:bounty' bounty.id %}">
         {% csrf_token %}
         {{ bounty_form.as_p }}
@@ -45,21 +45,42 @@
         <input type="button" class="btn btn-outline-danger" value="Cancel" onclick="canceledit()">
     </form>
 </div>
+<div id="applications">
+    <h3>Applicants</h3>
+    <hr />
+    <table class="table table-hover">
+        <thead>
+            <th scope="col">Applicant</th>
+            <th scope="col">Application Date</th>
+            <th scope="col"></th>
+        </thead>
+        <tbody>
+            {% for application in applications %}
+            <tr>
+                <th><a href="{% url 'accounts:profile' application.applicant.id %}">{{ application.applicant.username }}</a></th>
+                <td>{{ application.created_on }}</td>
+                <td><button type="button" class="btn btn-outline-success">Select Applicant</button></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
 <script>
     function editbounty(){
         document.getElementById("bounty").style.display = "none";
+        document.getElementById("applications").style.display = "none";
         document.getElementById("bounty_edit").style.display = "block";
     }
     
     function canceledit(){
         document.getElementById("bounty").style.display = "block";
+        document.getElementById("applications").style.display = "block";
         document.getElementById("bounty_edit").style.display = "none";
     }
 </script>
 {% endif %}
 
-<!--TODO: Show applicants if you're the creator and the status is new-->
 <!--TODO: Be able to choose an applicant and automatically change status-->
 <!--TODO: Show "Are you sure?" modal when you select an applicant-->
 
