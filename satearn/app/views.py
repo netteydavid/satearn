@@ -107,3 +107,13 @@ def my_jobs(request):
         'cancelled': cancelled,
     }
     return render(request, 'app/my_jobs.html', context)
+
+@login_required(login_url='/app/login')
+def select_applicant(request, application_id):
+    if request.method == 'POST':
+        application = get_object_or_404(Application, pk=application_id)
+        bounty: Bounty = application.bounty
+        bounty.assigned_to = application.applicant
+        bounty.status = Bounty.WORKING
+        bounty.save()
+        return redirect("app:bounty", bounty_id=bounty.id)

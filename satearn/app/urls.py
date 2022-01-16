@@ -19,6 +19,8 @@ urlpatterns = [
     path('my_bounties/', views.my_bounties, name='my_bounties'),
     # ex: /app/my_jobs/
     path('my_jobs/', views.my_jobs, name='my_jobs'),
+    # ex: /app/select_applicant/32
+    path('select_applicant/<int:application_id>', views.select_applicant, name='select_applicant'),
     
     path('', include('django.contrib.auth.urls')),
 ]

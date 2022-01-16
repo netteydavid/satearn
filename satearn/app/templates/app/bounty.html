@@ -59,7 +59,8 @@
             <tr>
                 <th><a href="{% url 'accounts:profile' application.applicant.id %}">{{ application.applicant.username }}</a></th>
                 <td>{{ application.created_on }}</td>
-                <td><button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#confirmModal" onclick="confirm('{{ application.applicant.username }}')">Select Applicant</button></td>
+                <td><button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#confirmModal" 
+                    onclick="confirm('{{ application.applicant.username }}', '{{ application.id }}')">Select Applicant</button></td>
             </tr>
             {% endfor %}
         </tbody>
@@ -74,25 +75,19 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" id="confirmationTxt">
-          Select this applicant for this bounty?
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-          <button type="button" class="btn btn-primary">Yes</button>
+          <form method="POST" id="confirm_yes_btn">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Yes</button>
+          </form>
         </div>
       </div>
     </div>
 </div>
 
 <script>
-
-    var myModal = document.getElementById('myModal');
-    var myInput = document.getElementById('myInput');
-
-    myModal.addEventListener('shown.bs.modal', function () {
-        myInput.focus()
-    });
-
     function editbounty(){
         document.getElementById("bounty").style.display = "none";
         document.getElementById("applications").style.display = "none";
@@ -105,8 +100,12 @@
         document.getElementById("bounty_edit").style.display = "none";
     }
 
-    function confirm(applicant){
+    function confirm(applicant, application_id){
         document.getElementById("confirmationTxt").innerHTML = `Select ${applicant} for this bounty?`;
+        var url = "{% url 'app:select_applicant' 0 %}";
+        url = url.replace("0", application_id);
+        alert(url);
+        document.getElementById("confirm_yes_btn").action = url;
     }
 </script>
 {% endif %}
