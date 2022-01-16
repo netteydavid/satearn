@@ -60,7 +60,7 @@
                 <th><a href="{% url 'accounts:profile' application.applicant.id %}">{{ application.applicant.username }}</a></th>
                 <td>{{ application.created_on }}</td>
                 <td><button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#confirmModal" 
-                    onclick="confirm('{{ application.applicant.username }}', '{{ application.id }}')">Select Applicant</button></td>
+                    onclick="confirm_modal_mod('{{ application.applicant.username }}', '{{ application.id }}')">Select Applicant</button></td>
             </tr>
             {% endfor %}
         </tbody>
@@ -89,23 +89,22 @@
 
 <script>
     function editbounty(){
-        document.getElementById("bounty").style.display = "none";
-        document.getElementById("applications").style.display = "none";
-        document.getElementById("bounty_edit").style.display = "block";
+        $("#bounty").css("display", "none");
+        $("#applications").css("display", "none");
+        $("#bounty_edit").css("display", "block");
     }
     
     function canceledit(){
-        document.getElementById("bounty").style.display = "block";
-        document.getElementById("applications").style.display = "block";
-        document.getElementById("bounty_edit").style.display = "none";
+        $("#bounty").css("display", "block");
+        $("#applications").css("display", "block");
+        $("#bounty_edit").css("display", "none");
     }
 
-    function confirm(applicant, application_id){
-        document.getElementById("confirmationTxt").innerHTML = `Select ${applicant} for this bounty?`;
+    function confirm_modal_mod(applicant, application_id){
+        $("#confirmationTxt").html(`Select ${applicant} for this bounty?`);
         var url = "{% url 'app:select_applicant' 0 %}";
         url = url.replace("0", application_id);
-        alert(url);
-        document.getElementById("confirm_yes_btn").action = url;
+        $("#confirm_yes_btn").action = url;
     }
 </script>
 {% endif %}

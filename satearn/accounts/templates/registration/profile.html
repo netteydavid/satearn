@@ -35,13 +35,13 @@
 
 <script>
 function editprofile(){
-    document.getElementById("profile").style.display = "none";
-    document.getElementById("profile_edit").style.display = "block";
+    $("#profile").css("display", "none");
+    $("#profile_edit").css("display", "block");
 }
 
 function canceledit(){
-    document.getElementById("profile").style.display = "block";
-    document.getElementById("profile_edit").style.display = "none";
+    $("#profile").css("display", "block");
+    $("#profile_edit").css("display", "none");
 }
 </script>
 {% endif %}

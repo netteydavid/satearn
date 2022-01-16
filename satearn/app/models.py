@@ -30,10 +30,11 @@ class Bounty(models.Model):
         get_user_model(), 
         on_delete=models.SET_NULL, 
         null=True, 
+        blank=True,
         related_name='assignments', 
         related_query_name='assignment'
     )
-    completed_on = models.DateTimeField(null=True)
+    completed_on = models.DateTimeField(null=True, blank=True)
 
     #TODO: Bounty categories
 
