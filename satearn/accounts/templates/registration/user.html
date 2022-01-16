@@ -7,7 +7,7 @@
 <form method="POST" action="{% url 'accounts:user' %}">
     {% csrf_token %}
     {{ user_form.as_p }}
-    <input type="submit" value="Save Changes">
+    <input type="submit" class="btn btn-outline-success" value="Save Changes">
 </form>
 
 <!-- Add button that links to password reset -->

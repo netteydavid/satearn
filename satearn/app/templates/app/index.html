@@ -21,7 +21,7 @@
   {% for bounty in latest_bounties %}
   <div class="col">
     <div class="card">
-      <img src="{% static 'app/default_card_img.jpg' %}" class="card-img-top" alt="{{ bounty.title }}">
+      <img src="{% static 'app/images/default_card_img.jpg' %}" class="card-img-top" alt="{{ bounty.title }}">
       <div class="card-body">
         <a href="{% url 'app:bounty' bounty.id %}"><h5 class="card-title">{{ bounty.title }}</h5></a>
         <p class="card-text">

@@ -117,3 +117,11 @@ def select_applicant(request, application_id):
         bounty.status = Bounty.WORKING
         bounty.save()
         return redirect("app:bounty", bounty_id=bounty.id)
+
+@login_required(login_url='/app/login')
+def delete_bounty(request, bounty_id):
+    if request.method == 'POST':
+        bounty = get_object_or_404(Bounty, pk=bounty_id)
+        if bounty.author == request.user:
+            bounty.delete()
+    return redirect("app:my_bounties")
