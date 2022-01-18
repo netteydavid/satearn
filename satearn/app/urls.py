@@ -5,6 +5,8 @@ app_name = 'app'
 urlpatterns = [
     # ex: /app/
     path('', views.index, name='index'),
+    # ex: /app/browse
+    path('browse/', views.browse, name='browse'),
     # ex: /app/3/
     path('<int:bounty_id>/', views.bounty, name='bounty'),
     # ex: /app/3/invoice

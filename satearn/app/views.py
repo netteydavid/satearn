@@ -12,6 +12,14 @@ def index(request):
     }
     return render(request, 'app/index.html', context)
 
+def browse(request):
+    bounties = Bounty.objects.order_by('-created_on')
+    #TODO: Pagination
+    context = {
+        'bounties': bounties
+    }
+    return render(request, 'app/browse.html', context)
+
 def bounty(request, bounty_id):
     bounty = get_object_or_404(Bounty, pk=bounty_id)
 
