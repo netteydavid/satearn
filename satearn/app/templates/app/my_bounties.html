@@ -42,7 +42,40 @@
 <!-- TODO: Filter, sort by, advanced search -->
 <hr>
 {% if bounties %}
-<div class="row row-cols-1 row-cols-md-4 g-4">
+<table class="table table-hover">
+  <thead>
+      <th>Bounty</th>
+      <th>Reward (sats)</th>
+      <th>Creation Date</th>
+      <th></th>
+  </thead>
+  <tbody>
+      {% for bounty in bounties %}
+      <tr>
+          <th>
+              <a href="{% url 'app:bounty' bounty.id %}" class="text-dark" style="text-decoration: none;">{{ bounty.title }}</a>
+          </th>
+          <td>
+              <a href="{% url 'app:bounty' bounty.id %}" class="text-dark" style="text-decoration: none;">
+                  <i class="fak fa-satoshisymbol-solid"></i> {{ bounty.reward }}
+              </a>
+          </td>
+          <td>
+            <a href="{% url 'app:bounty' bounty.id %}" class="text-dark" style="text-decoration: none;">{{ bounty.created_on }}</a>
+          </td>
+          <td>
+            <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="delete_modal_mod('{{ bounty.id }}')">
+              <img src="{% static 'app/images/icons/trash.svg' %}" width="24" height="24" alt="Delete Bounty">
+            </button>
+          </td>
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
+
+
+
+<!--<div class="row row-cols-1 row-cols-md-4 g-4">
   {% for bounty in bounties %}
   <div class="col">
     <div class="card">
@@ -61,7 +94,7 @@
     </div>
   </div>
   {% endfor %}
-</div>
+</div>-->
 <!-- TODO: Add pagination -->
 {% else %}
 <br>

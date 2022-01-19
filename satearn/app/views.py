@@ -1,9 +1,12 @@
+import imp
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from .models import Application, Bounty
 from .forms import BountyForm
 from django.forms import modelform_factory
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+from urllib import parse
 
 def index(request):
     latest_bounties = Bounty.objects.order_by('-created_on')[:5]
@@ -47,14 +50,10 @@ def bounty(request, bounty_id):
         'bounty_form': bounty_form, 
         'applications': applications, 
         'application_id': application_id, 
-        'is_me': request.user == bounty.author
+        'is_me': request.user == bounty.author,
     }
 
     return render(request, 'app/bounty.html', context)
-
-def invoice(request, bounty_id):
-    response = "You're looking at the invoice of bounty %s"
-    return HttpResponse(response % bounty_id)
 
 @login_required(login_url='/app/login')
 def create(request):
@@ -85,13 +84,22 @@ def apply(request, bounty_id):
     return redirect("app:bounty", bounty_id=bounty_id)
 
 @login_required(login_url='/app/login')
-def unapply(request, bounty_id, application_id):
+def unapply(request, application_id):
     if request.method == 'POST':
         application = get_object_or_404(Application, pk=application_id)
         if application.applicant == request.user:
             application.delete()
-        
-    return redirect("app:bounty", bounty_id=bounty_id)
+            
+    return redirect("app:bounty", bounty_id=application.bounty.id)
+
+@login_required(login_url='/app/login')
+def unapply_jobs(request, application_id):
+    if request.method == 'POST':
+        application = get_object_or_404(Application, pk=application_id)
+        if application.applicant == request.user:
+            application.delete()
+            
+    return redirect("app:my_jobs")
 
 @login_required(login_url='/app/login')
 def my_bounties(request):

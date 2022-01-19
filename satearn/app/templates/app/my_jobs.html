@@ -8,6 +8,37 @@
     <h1>My Jobs</h1>
 </div>
 
+<div class="modal fade" id="unapplyModal" tabindex="-1" aria-labelledby="unapplyModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="unapplyModalLabel">UNAPPLY</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="confirmationTxt">
+            Are you sure you want to unapply?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">No</button>
+          <form method="POST" id="yes_btn">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-primary" data-bs-dismiss="modal">Yes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+<script>
+function unapply_modal_mod(bounty, application_id){
+    $("#unapplyModalLabel").html(`Unapply - "${bounty}"`);
+
+    var url = "{% url 'app:unapply_jobs' 0 %}";
+    url = url.replace("0", application_id);
+    $("#yes_btn").attr('action', url);
+}
+</script>
+
 <div class="accordion" id="applications">
     <div class="accordion-item">
         <h2 class="accordion-header" id="applied-header">
@@ -17,23 +48,37 @@
         </h2>
         <div class="accordion-collapse collapse show" id="applied" aria-labelledby="applied-header">
             <div class="accordion-body">
-                <div class="row row-cols-1 row-cols-md-4 g-4">
-                    {% for application in applied %}
-                    <div class="col">
-                        <div class="card">
-                            <img src="{% static 'app/default_card_img.jpg' %}" class="card-img-top" alt="{{ application.bounty.title }}">
-                            <div class="card-body">
-                                <a href="{% url 'app:bounty' application.bounty.id %}"><h5 class="card-title">{{ application.bounty.title }}</h5></a>
-                                <p class="card-text">
-                                    Reward: {{ application.bounty.reward }} {% if application.bounty.reward == 1 %}sat{% else %}sats{% endif %}
-                                </p>
-                                
-                                <!--TODO: Unapply button-->
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <th>Bounty</th>
+                        <th>Reward (sats)</th>
+                        <th>Creation Date</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        {% for application in applied %}
+                        <tr>
+                            <th>
+                                <a href="{% url 'app:bounty' application.bounty.id %}" class="text-dark" style="text-decoration: none;">{{ application.bounty.title }}</a>
+                            </th>
+                            <td>
+                                <a href="{% url 'app:bounty' application.bounty.id %}" class="text-dark" style="text-decoration: none;">
+                                    <i class="fak fa-satoshisymbol-solid"></i> {{ application.bounty.reward }}
+                                </a>
+                            </td>
+                            <td>
+                              <a href="{% url 'app:bounty' application.bounty.id %}" class="text-dark" style="text-decoration: none;">{{ application.bounty.created_on }}</a>
+                            </td>
+                            <td>
+                              <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#unapplyModal" 
+                              onclick="unapply_modal_mod('{{ application.bounty.title }}', '{{ application.id }}')">
+                                Unapply
+                              </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

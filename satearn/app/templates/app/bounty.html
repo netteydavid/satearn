@@ -29,7 +29,7 @@
         <input type="submit" class="btn btn-outline-success" value="Apply">
     </form>
     {% elif application_id > -1 %}
-    <form method="post" action="{% url 'app:unapply' bounty.id application_id %}">
+    <form method="post" action="{% url 'app:unapply' application_id %}">
         {% csrf_token %}
         <input type="submit" class="btn btn-outline-danger" value="Unapply">
     </form>
