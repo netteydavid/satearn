@@ -4,8 +4,8 @@
 
 {% load static %}
 
-<div class="text-center">
-  <h1>Do Jobs. Stack Sats.</h1>
+<div class="text-center vh-75">
+  <h1 class="my-5 py-5">Do Jobs. Stack Sats.</h1>
   <br>
   <h3>Get Bitcoin by completing Bounties.</h3>
   <br>
@@ -14,5 +14,178 @@
   </a>
 </div>
 
+<hr>
+
+<div id="about" class="text-center">
+  <h2>What is Sat Earn?</h2>
+  <br>
+  <img src="{% static 'app/images/icons/shop.svg' %}" width="200" height="200">
+  <h4>Sat Earn is a marketplace where users can earn Bitcoin for completing tasks</h4>
+  <br>
+  <br>
+  <span>
+    <img src="{% static 'app/images/icons/hammer.svg' %}" width="200" height="200">
+    <img src="{% static 'app/images/icons/arrow-left-right.svg' %}" width="200" height="200">
+    <img src="{% static 'app/images/icons/currency-bitcoin.svg' %}" width="200" height="200">
+  </span>
+  <h4>Bounties are the tasks completed for Bitcoin</h4>
+  <br>
+  <br>
+  <span>
+    <img src="{% static 'app/images/icons/person-lines-fill.svg' %}" width="200" height="200">
+    <img src="{% static 'app/images/icons/file-earmark-plus.svg' %}" width="200" height="200">
+  </span>
+  <h4>Clients create bounties</h4>
+  <br>
+  <br>
+  <span>
+    <img src="{% static 'app/images/icons/person-workspace.svg' %}" width="200" height="200">
+    <img src="{% static 'app/images/icons/file-earmark-check.svg' %}" width="200" height="200">
+  </span>
+  <h4>Hunters complete bounties</h4>
+</div>
+
+<hr>
+
+<div id="clients" class="text-center vh-75">
+  <h1>Become a Client</h1>
+  <!--TODO: Minimalist step by step on creating and posting bounties-->
+  <div id="clientCarousel" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#clientCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#clientCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#clientCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#clientCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+      <button type="button" data-bs-target="#clientCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+      <button type="button" data-bs-target="#clientCarousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
+    </div>
+
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="5000">
+        <img src="{% static 'app/images/icons/person-circle.svg' %}" class="d-block w-25 mx-auto">
+        <div class="carousel-caption d-none d-md-block position-relative start-0">
+          <h5>1. Create an account</h5>
+          <p>Some representative placeholder content for the first slide.</p>
+        </div>
+      </div>
+      <div class="carousel-item" data-bs-interval="5000">
+        <img src="{% static 'app/images/icons/file-earmark-plus.svg' %}" class="d-block w-25 mx-auto">
+        <div class="carousel-caption d-none d-md-block position-relative start-0">
+          <h5>2. Create a new bounty</h5>
+          <p>Some representative placeholder content for the second slide.</p>
+        </div>
+      </div>
+      <div class="carousel-item" data-bs-interval="5000">
+        <img src="{% static 'app/images/icons/person-check.svg' %}" class="d-block w-25 mx-auto">
+        <div class="carousel-caption d-none d-md-block position-relative start-0">
+          <h5>3. Select a hunter</h5>
+          <p>Some representative placeholder content for the second slide.</p>
+        </div>
+      </div>
+      <div class="carousel-item" data-bs-interval="5000">
+        <img src="{% static 'app/images/icons/people.svg' %}" class="d-block w-25 mx-auto">
+        <div class="carousel-caption d-none d-md-block position-relative start-0">
+          <h5>4. Work together</h5>
+          <p>Some representative placeholder content for the second slide.</p>
+        </div>
+      </div>
+      <div class="carousel-item" data-bs-interval="5000">
+        <img src="{% static 'app/images/icons/check-circle.svg' %}" class="d-block w-25 mx-auto">
+        <div class="carousel-caption d-none d-md-block position-relative start-0">
+          <h5>5. Mark the bounty as complete</h5>
+          <p>Some representative placeholder content for the second slide.</p>
+        </div>
+      </div>
+      <div class="carousel-item" data-bs-interval="5000">
+        <img src="{% static 'app/images/icons/credit-card.svg' %}" class="d-block w-25 mx-auto">
+        <div class="carousel-caption d-none d-md-block position-relative start-0">
+          <h5>6. Make your payment</h5>
+          <p>Some representative placeholder content for the second slide.</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#clientCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#clientCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+
+<br>
+<br>
+<hr>
+<div id="hunters" class="text-center vh-75">
+  <h2>Become a Hunter</h2>
+  <!--TODO: Minimalist step by step on finding and completing bounties-->
+  <div id="hunterCarousel" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#hunterCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#hunterCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#hunterCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#hunterCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+      <button type="button" data-bs-target="#hunterCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+      <button type="button" data-bs-target="#hunterCarousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
+    </div>
+
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="5000">
+        <img src="{% static 'app/images/icons/person-circle.svg' %}" class="d-block w-25 mx-auto" width="">
+        <div class="carousel-caption d-none d-md-block position-relative start-0">
+          <h5>1. Create an account</h5>
+          <p>Some representative placeholder content for the first slide.</p>
+        </div>
+      </div>
+      <div class="carousel-item" data-bs-interval="5000">
+        <img src="{% static 'app/images/icons/search.svg' %}" class="d-block w-25 mx-auto">
+        <div class="carousel-caption d-none d-md-block position-relative start-0">
+          <h5>2. Browse for a bounty</h5>
+          <p>Some representative placeholder content for the second slide.</p>
+        </div>
+      </div>
+      <div class="carousel-item" data-bs-interval="5000">
+        <img src="{% static 'app/images/icons/file-earmark-check.svg' %}" class="d-block w-25 mx-auto">
+        <div class="carousel-caption d-none d-md-block position-relative start-0">
+          <h5>3. Apply</h5>
+          <p>Some representative placeholder content for the second slide.</p>
+        </div>
+      </div>
+      <div class="carousel-item" data-bs-interval="5000">
+        <img src="{% static 'app/images/icons/people.svg' %}" class="d-block w-25 mx-auto">
+        <div class="carousel-caption d-none d-md-block position-relative start-0">
+          <h5>4. Work together</h5>
+          <p>Some representative placeholder content for the second slide.</p>
+        </div>
+      </div>
+      <div class="carousel-item" data-bs-interval="5000">
+        <img src="{% static 'app/images/icons/envelope-check.svg' %}" class="d-block w-25 mx-auto">
+        <div class="carousel-caption d-none d-md-block position-relative start-0">
+          <h5>5. Deliver your work</h5>
+          <p>Some representative placeholder content for the second slide.</p>
+        </div>
+      </div>
+      <div class="carousel-item" data-bs-interval="5000">
+        <img src="{% static 'app/images/icons/currency-bitcoin.svg' %}" class="d-block w-25 mx-auto">
+        <div class="carousel-caption d-none d-md-block position-relative start-0">
+          <h5>6. Earn your sats</h5>
+          <p>Some representative placeholder content for the second slide.</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#hunterCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#hunterCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
 {% endblock %}
 
