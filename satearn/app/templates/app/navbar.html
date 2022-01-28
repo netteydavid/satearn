@@ -3,7 +3,7 @@
 {% block content %}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
+    <div class="container">
         <!--TODO: Add logo-->
         <a class="navbar-brand" href="{% url 'app:index' %}">Sat Earn</a>
 
@@ -28,7 +28,7 @@
     
             <!--User features-->
             {% if user.is_authenticated %}
-            <div class="d-flex">
+            <div class="d-flex mr-auto btn-group">
                 <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#" id="navbarDropdown">Hi, {{ user.username }}</a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <li class="dropdown-item"><a href="{% url 'accounts:user' %}" style="text-decoration: none;" class="text-dark">Account</a></li>
@@ -41,7 +41,7 @@
                 </ul>
             </div>
             {% else %}
-            <div class="d-flex">
+            <div class="d-flex mr-auto">
                 <a href="{% url 'app:login' %}"><button type="button" class="btn btn-outline-dark">Log In</button></a>&nbsp;&nbsp;
                 <a href="{% url 'accounts:signup' %}"><button type="button" class="btn btn-outline-primary">Create an Account</button></a>
             </div>
@@ -50,7 +50,7 @@
     </div>
 </nav>
 
-<div>
+<div class="container h-100">
     {% block main %}{% endblock %}
 </div>
 

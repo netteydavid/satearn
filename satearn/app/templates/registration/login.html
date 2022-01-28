@@ -3,11 +3,11 @@
 {% block content %}
 
 <nav class="navbar navbar-light bg-light">
-  <div class="container-fluid">
+  <div class="container">
       <a class="navbar-brand" href="{% url 'app:index' %}">Sat Earn</a>
   </div>
 </nav>
-<div class="text-center">
+<div class="text-center container vh-100">
   <br>
   <form method="post">
     {% csrf_token %}
