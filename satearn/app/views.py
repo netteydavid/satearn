@@ -57,21 +57,17 @@ def bounty(request, bounty_id):
 
 @login_required(login_url='/app/login')
 def create(request):
-    BountyFormSet = modelform_factory(
-        Bounty, form=BountyForm, 
-        fields = ('title', 'description', 'reward', 'due_date'), 
-        localized_fields = ('due_date',)
-    )
     if request.method == 'POST':
-        formset = BountyFormSet(request.POST, request.FILES)
-        if formset.is_valid():
-            bounty = formset.save(commit=False)
+        bounty_form = BountyForm(request.POST)
+        if bounty_form.is_valid():
+            bounty = bounty_form.save(commit=False)
             bounty.author = request.user
             bounty.save()
-    else:
-        bounty = Bounty(author=request.user)
-        formset = BountyFormSet(instance=bounty)
-    return render(request, 'app/create.html', {'formset': formset})
+            return redirect("app:bounty", bounty_id=bounty.id)
+
+    bounty = Bounty(author=request.user)
+    bounty_form = BountyForm(instance=bounty)
+    return render(request, 'app/create.html', {'bounty_form': bounty_form})
 
 @login_required(login_url='/app/login')
 def apply(request, bounty_id):
