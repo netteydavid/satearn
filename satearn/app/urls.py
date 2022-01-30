@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path, re_path, include
 from . import views
 
 app_name = 'app'
@@ -6,7 +6,7 @@ urlpatterns = [
     # ex: /app/
     path('', views.index, name='index'),
     # ex: /app/browse
-    path('browse/', views.browse, name='browse'),
+    re_path(r'^browse/(?P<category>[a-zA-Z]+)?$', views.browse, name='browse'),
     # ex: /app/3/
     path('<int:bounty_id>/', views.bounty, name='bounty'),
     # ex: /app/create/

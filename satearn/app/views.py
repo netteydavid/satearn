@@ -1,12 +1,8 @@
-import imp
+
 from django.shortcuts import get_object_or_404, render, redirect
-from django.http import HttpResponse
 from .models import Application, Bounty
 from .forms import BountyForm
-from django.forms import modelform_factory
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse
-from urllib import parse
 
 def index(request):
     latest_bounties = Bounty.objects.order_by('-created_on')[:5]
@@ -15,11 +11,17 @@ def index(request):
     }
     return render(request, 'app/index.html', context)
 
-def browse(request):
+def browse(request, category=""):
     bounties = Bounty.objects.order_by('-created_on')
+    selected = ""
+    if category in [c[0] for c in Bounty.CATEGORIES]: 
+        bounties = bounties.filter(category=category)
+        selected = category
     #TODO: Pagination
     context = {
-        'bounties': bounties
+        'bounties': bounties,
+        'category': selected,
+        'categories': Bounty.CATEGORIES,
     }
     return render(request, 'app/browse.html', context)
 
