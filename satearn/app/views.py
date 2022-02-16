@@ -1,4 +1,5 @@
 
+from tkinter.font import BOLD
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import Application, Bounty
 from .forms import BountyForm
@@ -11,18 +12,33 @@ def index(request):
     }
     return render(request, 'app/index.html', context)
 
-def browse(request, category=""):
-    bounties = Bounty.objects.order_by('-created_on')
+def browse(request, category="", sort=""):
+
+    SORTORDER = [
+        "Newest to Oldest", 
+        "Oldest to Newest", 
+        "Title: A-Z",  
+        "Title: Z-A",  
+        "Reward: Highest to Lowest", 
+        "Reward: Lowest to Highest", 
+        "Client: A-Z"
+        "Client: Z-A"
+    ]
+    
+    bounties = Bounty.objects.filter(category=Bounty.NEW).order_by(sort)
+            
     selected = ""
     if category in [c[0] for c in Bounty.CATEGORIES]: 
         bounties = bounties.filter(category=category)
         selected = category
-    #TODO: Pagination
+
     context = {
-        'bounties': bounties,
+        'bounties': bounties[:24], #TODO: Pagination
         'category': selected,
         'categories': Bounty.CATEGORIES,
+        'sort_list': SORTORDER
     }
+    
     return render(request, 'app/browse.html', context)
 
 def bounty(request, bounty_id):

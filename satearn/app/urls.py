@@ -6,7 +6,7 @@ urlpatterns = [
     # ex: /app/
     path('', views.index, name='index'),
     # ex: /app/browse
-    re_path(r'^browse/(?P<category>[a-zA-Z]+)?$', views.browse, name='browse'),
+    re_path(r'^browse(/category-(?P<category>[a-zA-Z]+))?(/sort-(?P<sort>.+))?$', views.browse, name='browse'), #TODO: Test
     # ex: /app/3/
     path('<int:bounty_id>/', views.bounty, name='bounty'),
     # ex: /app/create/
