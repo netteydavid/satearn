@@ -21,9 +21,9 @@
       <li class="nav-item">
         <a class="nav-link {% if category == '' %}active{% endif %}" aria-current="page" href="{% url 'app:browse' %}">All</a>
       </li>
-      {% for c in categories %}
+      {% for c in categories%}
       <li class="nav-item">
-        <a class="nav-link {% if category == c.0 %}active{% endif %}" aria-current="page" href="{% url 'app:browse' c.0 %}">{{ c.1 }}</a>
+        <a class="nav-link {% if category == c.0 %}active{% endif %}" aria-current="page" href="{% url 'app:browse' category=c.0 sort='' %}">{{ c.1 }}</a>
       </li>
       {% endfor %}
     </ul>

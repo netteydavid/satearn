@@ -12,7 +12,7 @@ def index(request):
     }
     return render(request, 'app/index.html', context)
 
-def browse(request, category="", sort=""):
+def browse(request, category="", sort="created_on"):
 
     SORTORDER = [
         "Newest to Oldest", 
@@ -36,7 +36,7 @@ def browse(request, category="", sort=""):
         'bounties': bounties[:24], #TODO: Pagination
         'category': selected,
         'categories': Bounty.CATEGORIES,
-        'sort_list': SORTORDER
+        'sort_list': SORTORDER,
     }
     
     return render(request, 'app/browse.html', context)
