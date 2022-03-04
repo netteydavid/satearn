@@ -12,31 +12,31 @@ def index(request):
     }
     return render(request, 'app/index.html', context)
 
-def browse(request, category="", sort="created_on"):
+def browse(request, category="all", sort="created_on"):
 
     SORTORDER = [
-        "Newest to Oldest", 
-        "Oldest to Newest", 
-        "Title: A-Z",  
-        "Title: Z-A",  
-        "Reward: Highest to Lowest", 
-        "Reward: Lowest to Highest", 
-        "Client: A-Z"
-        "Client: Z-A"
+        ("Newest to Oldest", "-created_on"), 
+        ("Oldest to Newest", "created_on"), 
+        ("Title: A-Z", "title"),  
+        ("Title: Z-A", "-title"),  
+        ("Reward: Highest to Lowest", "-reward"), 
+        ("Reward: Lowest to Highest", "reward"), 
+        ("Client: A-Z", "author__username"),
+        ("Client: Z-A", "-author__username")
     ]
     
     bounties = Bounty.objects.filter(category=Bounty.NEW).order_by(sort)
             
-    selected = ""
     if category in [c[0] for c in Bounty.CATEGORIES]: 
         bounties = bounties.filter(category=category)
-        selected = category
 
     context = {
         'bounties': bounties[:24], #TODO: Pagination
-        'category': selected,
+        'category': category,
         'categories': Bounty.CATEGORIES,
         'sort_list': SORTORDER,
+        'sort': [s[0] for s in SORTORDER if s[1] == sort][0],
+        'sort_code': sort
     }
     
     return render(request, 'app/browse.html', context)

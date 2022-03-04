@@ -11,6 +11,20 @@
 <a href="{% url 'app:create' %}"><button type="button" class="btn btn-outline-success">Create a Bounty</button></a>
 {% endif %}
 <!-- TODO: Filter, sort by, advanced search -->
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="sortByBtn" data-bs-toggle="dropdown" aria-expanded="false">
+    Sort By {{ sort }}
+  </button>
+
+  <!--Sort Order links-->
+  <ul class="dropdown-menu" aria-labelledby="sortByBtn">
+    {% for s in sort_list %}
+    <li>
+      <a class="dropdown-item" href="{% url 'app:browse' category=category sort=s.1 %}">{{ s.0 }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
 <hr>
 
 <div class="row">
@@ -19,11 +33,11 @@
     <h2>Categories</h2>
     <ul class="nav flex-column nav-pills">
       <li class="nav-item">
-        <a class="nav-link {% if category == '' %}active{% endif %}" aria-current="page" href="{% url 'app:browse' %}">All</a>
+        <a class="nav-link {% if category == 'all' %}active{% endif %}" aria-current="page" href="{% url 'app:browse' %}">All</a>
       </li>
       {% for c in categories%}
       <li class="nav-item">
-        <a class="nav-link {% if category == c.0 %}active{% endif %}" aria-current="page" href="{% url 'app:browse' category=c.0 sort='' %}">{{ c.1 }}</a>
+        <a class="nav-link {% if category == c.0 %}active{% endif %}" aria-current="page" href="{% url 'app:browse' category=c.0 sort=sort_code %}">{{ c.1 }}</a>
       </li>
       {% endfor %}
     </ul>
