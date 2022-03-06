@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from .models import Application, Bounty
 from .forms import BountyForm
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 def index(request):
     latest_bounties = Bounty.objects.order_by('-created_on')[:5]
@@ -25,18 +26,24 @@ def browse(request, category="all", sort="created_on"):
         ("Client: Z-A", "-author__username")
     ]
     
-    bounties = Bounty.objects.filter(category=Bounty.NEW).order_by(sort)
-            
+    bounties = Bounty.objects.filter(status=Bounty.NEW).order_by(sort)
+
+    search = request.GET.get('search')
+
+    if search != "" and search is not None:
+        bounties = bounties.filter(Q(title__contains=search) | Q(description__contains=search) | Q(tags__contains=search) | Q(author__username__contains=search))
+     
     if category in [c[0] for c in Bounty.CATEGORIES]: 
         bounties = bounties.filter(category=category)
 
     context = {
-        'bounties': bounties[:24], #TODO: Pagination
+        'bounties': bounties, #TODO: Pagination - bounties[:max_num]
         'category': category,
         'categories': Bounty.CATEGORIES,
         'sort_list': SORTORDER,
         'sort': [s[0] for s in SORTORDER if s[1] == sort][0],
-        'sort_code': sort
+        'sort_code': sort,
+        'search_term': search
     }
     
     return render(request, 'app/browse.html', context)

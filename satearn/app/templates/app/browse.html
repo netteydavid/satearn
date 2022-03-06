@@ -6,28 +6,52 @@
 
 <h1 class="text-center">Browse Bounties</h1>
 
-<!--Create bounty button-->
-{% if user.is_authenticated %}
-<a href="{% url 'app:create' %}"><button type="button" class="btn btn-outline-success">Create a Bounty</button></a>
-{% endif %}
-<!-- TODO: Filter, sort by, advanced search -->
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="sortByBtn" data-bs-toggle="dropdown" aria-expanded="false">
-    Sort By {{ sort }}
-  </button>
+<!-- TODO: advanced search -->
+<div class="row">
+  <div class="col">
+    <!--Sort By-->
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="sortByBtn" data-bs-toggle="dropdown" aria-expanded="false">
+        Sort By {{ sort }}
+      </button>
 
-  <!--Sort Order links-->
-  <ul class="dropdown-menu" aria-labelledby="sortByBtn">
-    {% for s in sort_list %}
-    <li>
-      <a class="dropdown-item" href="{% url 'app:browse' category=category sort=s.1 %}">{{ s.0 }}</a>
-    </li>
-    {% endfor %}
-  </ul>
+      <!--Sort Order links-->
+      <ul class="dropdown-menu" aria-labelledby="sortByBtn">
+        {% for s in sort_list %}
+        <li>
+          {% if search_term is not None and search_term != "" %}
+          <a class="dropdown-item" href="{% url 'app:browse' category=category sort=s.1 %}?search={{ search_term }}">{{ s.0 }}</a>
+          {% else %}
+          <a class="dropdown-item" href="{% url 'app:browse' category=category sort=s.1 %}">{{ s.0 }}</a>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="col-4">
+    <!--Search-->
+    <form method="get" action="{% url 'app:browse' category=category sort=sort_code %}">
+      <div class="input-group">
+        <input type="text" class="form-control" name="search" placeholder="Search Bounties" aria-label="Search Bounties" aria-describedby="searchBtn" 
+          {% if search_term is not None and search_term != "" %}value="{{ search_term }}"{% endif %}>
+        <button class="btn btn-outline-secondary" type="submit" id="searchBtn">Search</button>
+      </div>
+    </form>
+  </div>
 </div>
+
+
 <hr>
 
 <div class="row">
+  <!--Create bounty button-->
+  <div class="mb-3">
+    {% if user.is_authenticated %}
+    <a href="{% url 'app:create' %}"><button type="button" class="btn btn-outline-success">Create a Bounty</button></a>
+    {% endif %}
+  </div>
+
   <!--Categories-->
   <div class="col-2">
     <h2>Categories</h2>
@@ -37,7 +61,12 @@
       </li>
       {% for c in categories%}
       <li class="nav-item">
-        <a class="nav-link {% if category == c.0 %}active{% endif %}" aria-current="page" href="{% url 'app:browse' category=c.0 sort=sort_code %}">{{ c.1 }}</a>
+        <a class="nav-link {% if category == c.0 %}active{% endif %}" aria-current="page" 
+          {% if search_term is not None and search_term != "" %}
+          href="{% url 'app:browse' category=c.0 sort=sort_code %}?search={{ search_term }}"
+          {% else %}
+          href="{% url 'app:browse' category=c.0 sort=sort_code %}"
+          {% endif %}>{{ c.1 }}</a>
       </li>
       {% endfor %}
     </ul>
